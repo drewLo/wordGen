@@ -5,18 +5,21 @@
 */
 
 /*
-  Notes: at this time I'm going to get the generator working (ie. running the program outputs a procedurally generated word).
+  Roadmap:
+  v1.0 : get the generator working (ie. running the program outputs a procedurally generated word).
 
   TODO:
-  - [ ] organize vowels and consonants into a data structure.
-  - [ ] use random's facilities to:
-      - [ ] get a number of phonemes to use:
-      - 'syllables' are delimited by consonants: >1, <6.
-      - [ ] 'randomly' start with a consonant or vowel
-      - [ ] 'randomly' select from the pool of consonants or vowels.
+  - [X] organize vowels and consonants into a data structure.
+  - [X] use random's facilities to:
+      - [X] get a number of phonemes to use:
+          - 'syllables' are delimited by consonants: >1, <6.
+      - [X] 'randomly' start with a consonant or vowel
+      - [X] 'randomly' select from the pool of consonants or vowels.
       - [ ] ** optional: if the consonant or vowel is a dipthong, make it possible to to choose another vowel or consonant.
-  - [ ] 
-  - [ ] command line parsing tool
+  - [ ] refactoring
+  - [ ] command line parsing for custom values.
+  - [ ] add phoneme attributes: dipthongs, weighted values
+  - [ ] additional langauge support
  */
 
 //#include "phonemes.hpp"
@@ -29,13 +32,14 @@
 using std::vector;
 using std::string;
 
-namespace wordgen {
+namespace settings {
   struct option {
     int length;
   };
-  struct parameter {
-    string current_phoneme_type;
-  }
+  struct state {
+    int current_phoneme_type;
+    bool previous;
+  };
 }
 
 vector<string> consonant = {"b","c","ch","d",
@@ -50,52 +54,64 @@ vector<string> vowel = {"a","ae","ah","ai",
                         "o","oh","oo",
                         "u"};
 
-int get_random(const int& min, const int& max) {
+int get_random_value(const int& min, const int& max) {
   std::random_device r;
   std::default_random_engine eng(r());
   return std::uniform_int_distribution<int> {min, max} (eng);
 }
 
-string random_begin(){
-  string beginning;
-  int flip = get_random(1,2);
-  if (flip == 1) beginning = "consonant";
-  else if (flip == 2) beginning = "vowel";
-  return beginning;
-}
-
 string random_consonant(){
-  return consonant.at(get_random(0,consonant.size() - 1));
+  return consonant.at(get_random_value(0,consonant.size() - 1));
 }
 
 string random_vowel(){
-  return vowel.at(get_random(0,vowel.size() -1));
+  return vowel.at(get_random_value(0,vowel.size() -1));
 }
 
-string get_random_phoneme(){
-  string begin = random_begin();
-  if (begin == "consonant"){
-    
+string get_first(){
+  string first_phoneme;
+  int flip = get_random_value(1,2);
+  if (flip == 1) {
+    first_phoneme = random_consonant();
+  } else if (flip == 2) {
+    first_phoneme = random_vowel();
   }
-
+  return first_phoneme;
 }
 
-
-string gen_word(int length){
-  string word;
+string get_random_phoneme(settings::state& s){
   string phoneme;
-  for (int i = 0; i < length; ++i){
-    phoneme = get_random_phoneme();
+  if (s.previous) {
+    phoneme = random_consonant();
+    s.previous = false;
+  } else {
+    phoneme = random_vowel();
+    s.previous = true;
+  }
+  return phoneme;
+}
+
+vector<string> gen_word(const settings::option& o, settings::state& s){
+  vector<string> word;
+  string phoneme;
+  for (int i = 0; i < o.length; ++i){
+    phoneme = get_random_phoneme(s);
     word.push_back(phoneme);
   }
   return word;
 }
 
+void print(vector<string>& word){
+  for (size_t i; i < word.size(); ++i) {
+    std::cout << word.at(i);
+  }
+}
 
-int main(){
-  // for (int i = 0; i < vowel.size(); ++i) {
-  //   std::cout << vowel.at(i) << " ";
-  // }
-
+int main() {
+  settings::option opt;
+  settings::state state;
+  opt.length = get_random_value(2,7);
+  auto word = gen_word(opt, state);
+  print(word);
   return 0;
 }
