@@ -4,7 +4,6 @@
   A procedural word generator.
 */
 
-
 //#include "phonemes.hpp"
 
 #include <iostream>
@@ -92,7 +91,7 @@ vector<string> gen_word(const settings::option& o,
   return word;
 }
 
-void print(vector<string>& word){
+void print(const vector<string>& word){
   for (size_t i; i < word.size(); ++i) {
     std::cout << word.at(i);
   }

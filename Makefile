@@ -4,8 +4,8 @@ endif
 
 CXXFLAGS+= -g
 
-wordGen: clean
+wordgen: clean
 	c++ ${CXXFLAGS} main.cpp -o wordGen
 
 clean:
-	rm -f wordGen
+	rm -f wordgen

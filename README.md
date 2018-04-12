@@ -14,11 +14,11 @@ Clone the repo to that location.
 
 Compile the file with make.
 
-    $ make main
+    $ make
 
 Run the program.
 
-    $ ./main
+    $ ./wordgen
 
 Enjoy!
 
