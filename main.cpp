@@ -4,23 +4,6 @@
   A procedural word generator.
 */
 
-/*
-  Roadmap:
-  v1.0 : get the generator working (ie. running the program outputs a procedurally generated word).
-
-  TODO:
-  - [X] organize vowels and consonants into a data structure.
-  - [X] use random's facilities to:
-      - [X] get a number of phonemes to use:
-          - 'syllables' are delimited by consonants: >1, <6.
-      - [X] 'randomly' start with a consonant or vowel
-      - [X] 'randomly' select from the pool of consonants or vowels.
-      - [ ] ** optional: if the consonant or vowel is a dipthong, make it possible to to choose another vowel or consonant.
-  - [ ] refactoring
-  - [ ] command line parsing for custom values.
-  - [ ] add phoneme attributes: dipthongs, weighted values
-  - [ ] additional langauge support
- */
 
 //#include "phonemes.hpp"
 
@@ -32,7 +15,8 @@
 using std::vector;
 using std::string;
 
-namespace settings {
+namespace settings
+{
   struct option {
     int length;
   };
@@ -54,21 +38,25 @@ vector<string> vowel = {"a","ae","ah","ai",
                         "o","oh","oo",
                         "u"};
 
-int get_random_value(const int& min, const int& max) {
+int get_random_value(const int& min, const int& max)
+{
   std::random_device r;
   std::default_random_engine eng(r());
   return std::uniform_int_distribution<int> {min, max} (eng);
 }
 
-string random_consonant(){
+string random_consonant()
+{
   return consonant.at(get_random_value(0,consonant.size() - 1));
 }
 
-string random_vowel(){
+string random_vowel()
+{
   return vowel.at(get_random_value(0,vowel.size() -1));
 }
 
-string get_first(){
+string get_first()
+{
   string first_phoneme;
   int flip = get_random_value(1,2);
   if (flip == 1) {
@@ -79,7 +67,8 @@ string get_first(){
   return first_phoneme;
 }
 
-string get_random_phoneme(settings::state& s){
+string get_random_phoneme(settings::state& s)
+{
   string phoneme;
   if (s.previous) {
     phoneme = random_consonant();
@@ -91,7 +80,9 @@ string get_random_phoneme(settings::state& s){
   return phoneme;
 }
 
-vector<string> gen_word(const settings::option& o, settings::state& s){
+vector<string> gen_word(const settings::option& o,
+                        settings::state& s)
+{
   vector<string> word;
   string phoneme;
   for (int i = 0; i < o.length; ++i){
@@ -105,6 +96,7 @@ void print(vector<string>& word){
   for (size_t i; i < word.size(); ++i) {
     std::cout << word.at(i);
   }
+  std::cout << '\n';
 }
 
 int main() {
