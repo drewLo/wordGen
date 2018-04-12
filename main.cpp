@@ -103,7 +103,7 @@ void print(const vector<string>& word){
 
 static void usage(const char* name)
 {
-     std::cerr << "Usage: " << name << " [-h] [-r # repetitions] \n";
+     std::cerr << "Usage: " << name << " [-h] [-r # repetitions] [-l # phonemes]\n";
 }
 
 static void help(const char* name)
