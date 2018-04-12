@@ -6,9 +6,7 @@
   - Why: what use could this have? mostly it's to help come up with silly names for music/works of art.
     - But it also serves the purpose of becomming more familiar with stochastic processes in C++. 
     - Procedurally generated art fascinates me, and I'd like to make some 'automatic art' of my own, this is a foray into it.
-    - I'd like to someday place this into a max4live device so It can be used as a plugin
-    - 
-
+    - I'd like to someday place this into a max4live device so It can be used as a plugin in ableton
 * Suggestions:
 ** From Parillo
    - Using a beta distribution. 
@@ -21,13 +19,12 @@
      - this is a much mroe advanced tool compared to what I'm making. but insteresting nonetheless.
 ** From Broesche
    - determine frequency of phonemes using crytographic methods. 
-     
 * Planning
 * TODO
   Roadmap:
   v1.0 : get the generator working (ie. running the program outputs a procedurally generated word).
-
-  TODO:
+  v1.1 : implement command line arguments.
+  v1.2 : 
   - [X] organize vowels and consonants into a data structure.
   - [X] use random's facilities to:
       - [X] get a number of phonemes to use:
@@ -36,6 +33,7 @@
       - [X] 'randomly' select from the pool of consonants or vowels.
       - [ ] ** optional: if the consonant or vowel is a dipthong, make it possible to to choose another vowel or consonant.
   - [ ] refactoring
-  - [ ] command line parsing for custom values.
+  - [X] command line parsing for custom values.
   - [ ] add phoneme attributes: dipthongs, weighted values
+    - [ ] script for analyzing frequency distribution of phonemes from word lists.
   - [ ] additional langauge support
