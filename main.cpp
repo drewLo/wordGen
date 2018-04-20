@@ -95,8 +95,8 @@ vector<string> gen_word(const settings::option& o,
 }
 
 void print(const vector<string>& word){
-     for (size_t i; i < word.size(); ++i) {
-          std::cout << word.at(i);
+     for (const auto& w : word) {
+          std::cout << w;
      }
      std::cout << '\n';
 }
