@@ -4,7 +4,7 @@
 
 * Introduction:
   - Why: what use could this have? mostly it's to help come up with silly names for music/works of art.
-    - But it also serves the purpose of becomming more familiar with stochastic processes in C++. 
+    - But it also serves the purpose of becomming more familiar with randomness in C++ & the STL. 
     - Procedurally generated art fascinates me, and I'd like to make some 'automatic art' of my own, this is a foray into it.
     - I'd like to someday place this into a max4live device so It can be used as a plugin in ableton
 * Suggestions:
